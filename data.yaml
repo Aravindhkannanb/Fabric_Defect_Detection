@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ['Hole', 'stain', 'thread']
+
+roboflow:
+  workspace: shuimoo
+  project: clothing_defects
+  version: 4
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/shuimoo/clothing_defects/dataset/4
