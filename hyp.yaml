@@ -1,0 +1,51 @@
+# Learning Rate and Optimizer settings
+lr0: 0.003            # Initial learning rate (slightly lower for stable convergence)
+lrf: 0.01             # Final learning rate (as a fraction of the initial learning rate)
+momentum: 0.937       # Momentum for SGD (or beta1 for Adam)
+weight_decay: 0.0005  # L2 regularization (helps prevent overfitting)
+optimizer: "AdamW"    # AdamW is generally faster and more stable than SGD
+
+# Training Settings
+          # Image size (balanced for accuracy and speed)
+patience: 20          # Early stopping after 20 epochs of no improvement in validation metrics
+workers: 4            # Number of workers (based on system; fewer may reduce overhead)
+
+# Augmentation Settings
+hsv_h: 0.015          # HSV hue augmentation (color jitter)
+hsv_s: 0.7            # HSV saturation augmentation (helps with lighting variation)
+hsv_v: 0.4            # HSV value augmentation (brightness)
+degrees: 2.0          # Small random rotations (good for generalizing to rotated objects)
+translate: 0.1        # Small translations (helps with objects not centered)
+scale: 0.5            # Scaling (simulating objects of different sizes)
+shear: 0.0            # No shear (keeping this low for simpler training)
+perspective: 0.001    # Small perspective transformation for better 3D understanding
+flipud: 0.0           # No vertical flip (typically not useful unless dataset supports it)
+fliplr: 0.5           # Horizontal flip (helps with generalization)
+mosaic: 1.0           # Use mosaic augmentation (helps with object detection in complex scenes)
+mixup: 0.2            # Use some mixup augmentation for better generalization
+copy_paste: 0.1       # Light use of copy-paste augmentation (helps for object occlusion)
+bgr: 0.0              # No channel flipping to keep images consistent
+
+# Regularization and Overfitting Control
+label_smoothing: 0.01   # Light label smoothing to prevent overconfidence
+dropout: 0.1            # Adding some dropout to reduce overfitting (especially helpful in classification)
+freeze: 0               # Freeze 0 layers to allow full model training (useful for fine-tuning)
+single_cls: False       # Keep multi-class for more robust detection (True if it's a binary task)
+
+# Mixed Precision and Speed Optimization
+amp: True               # Automatic Mixed Precision (faster training with less memory usage)
+rect: False             # Do not use rectangular training (balanced approach for padding)
+cos_lr: True            # Cosine learning rate schedule for smoother learning rate adjustments
+
+# Advanced Techniques
+close_mosaic: 10        # Disable mosaic in the last 10 epochs for more stable training
+warmup_epochs: 3.0      # Warmup phase with a slower learning rate to stabilize training
+warmup_momentum: 0.8    # Start with lower momentum during the warmup phase
+warmup_bias_lr: 0.1     # Bias-specific learning rate during the warmup phase for better stability
+
+# Loss Components
+box: 7.5                # Box loss weight (higher for precise box prediction)
+cls: 0.5                # Class loss weight (balanced to prevent bias toward classes)
+dfl: 1.5                # Distribution focal loss for better fine-grained classification (if applicable)
+pose: 12.0              # If using pose estimation, focus on keypoints accuracy
+kobj: 2.0               # Keypoint objectness loss (relevant for pose estimation models)
